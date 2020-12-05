@@ -19,6 +19,8 @@ service PostService {
   rpc DeletePost(DeletePostRequest) returns (google.protobuf.Empty);
   rpc GetPost(GetPostRequest) returns (goblog.post.v1.Post);
   rpc ListPosts(google.protobuf.Empty) returns (stream goblog.post.v1.Post);
+
+  rpc GetPostsForAuthor(GetPostsForAuthorRequest) returns (stream goblog.post.v1.Post);
 }
 
 message CreateAuthorRequest {
@@ -56,4 +58,8 @@ message DeletePostRequest {
 
 message GetPostRequest {
   string id = 1;
+}
+
+message GetPostsForAuthorRequest {
+  string email = 1;
 }
