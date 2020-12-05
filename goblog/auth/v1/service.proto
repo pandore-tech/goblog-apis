@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package goblog.auth.v1;
+
+import "google/protobuf/empty.proto";
+import "goblog/auth/v1/resources.proto";
+
+option go_package = "goblog-genproto-go/auth/v1;auth";
+
+service AuthService {
+  rpc CreateUser(CreateUserRequest) returns (goblog.auth.v1.User);
+  rpc UpdateUser(UpdateUserRequest) returns (goblog.auth.v1.User);
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  rpc GetUser(GetUserRequest) returns (goblog.auth.v1.User);
+  rpc ListUsers(google.protobuf.Empty) returns (stream goblog.auth.v1.User);
+
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+  rpc RenewToken(RenewTokenRequest) returns (RenewTokenResponse);
+  rpc LogoutUser(LogoutUserRequest) returns (google.protobuf.Empty);
+}
+
+message CreateUserRequest {
+  string email = 1;
+  goblog.auth.v1.UserCredential.CredentialType credential_type = 2;
+  string credential = 3;
+}
+
+message UpdateUserRequest {
+  string email = 1;
+}
+
+message DeleteUserRequest {
+  string email = 1;
+}
+
+message GetUserRequest {
+  string email = 1;
+}
+
+message LoginUserRequest {
+  string email = 1;
+  goblog.auth.v1.UserCredential.CredentialType credential_type = 2;
+  string credential = 3;
+}
+
+message LoginUserResponse {
+  string token = 1;
+}
+
+message RenewTokenRequest {
+  string token = 1;
+}
+
+message RenewTokenResponse {
+  string token = 1;
+}
+
+message LogoutUserRequest {
+  string token = 1;
+}

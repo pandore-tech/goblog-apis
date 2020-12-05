@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package goblog.gateway.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "goblog/auth/v1/resources.proto";
+
+option go_package = "goblog-genproto-go/gateway/v1;gateway";
+
+// Goblog gateway service
+//
+// Main entrypoint for goblog solution.
+// Interface for features between consumers and microservices.
+service GatewayService {
+  // Create a new [goblog.auth.v1.User] with the given [goblog.auth.v1.UserCredential] and the associated [goblog.post.v1.Author].
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+  // Update an [goblog.auth.v1.User] and the associated [goblog.post.v1.Author].
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  // Create a [goblog.auth.v1.User] with the given [goblog.auth.v1.UserCredential] and the associated [goblog.post.v1.Author].
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  // Get user details, with [goblog.auth.v1.User], [goblog.post.v1.Author] and [goblog.post.v1.Post] list.
+  rpc GetUserDetails(GetUserDetailsRequest) returns (GetUserDetailsResponse);
+}
+
+// Request message for [GatewayService.RegisterUser][goblog.gateway.v1.GatewayService.RegisterUser]
+message RegisterUserRequest {
+  // Required. The unique identifier for the user as an email address. Must be a valid email address.
+  string email = 1;
+  // Optional. The name for human-friendly display. If omitted, it will be set to the email @ prefix.
+  string username = 2;
+  // Required. The type of credential used for user connection.
+  goblog.auth.v1.UserCredential.CredentialType credential_type = 3;
+  // Required. The credential for the user.
+  string credential = 4;
+}
+
+// Response message for [GatewayService.RegisterUser][goblog.gateway.v1.GatewayService.RegisterUser]
+message RegisterUserResponse {
+  // The unique identifier for the newly created user.
+  string email = 1;
+  // The name for human-friendly display.
+  string username = 2;
+  // Creation timestamp.
+  google.protobuf.Timestamp created_at = 3;
+}
+
+// Request message for [GatewayService.UpdateUser][goblog.gateway.v1.GatewayService.UpdateUser]
+message UpdateUserRequest {
+  // Required. The unique identifier for the user as an email address. Must be an existent user.
+  string email = 1;
+  // Optional. The name for human-friendly display. If omitted, it will be set to the email @ prefix.
+  string username = 2;
+}
+
+// Response message for [GatewayService.UpdateUser][goblog.gateway.v1.GatewayService.UpdateUser]
+message UpdateUserResponse {
+  // The unique identifier for the updated user.
+  string email = 1;
+  // The name for human-friendly display.
+  string username = 2;
+  // Update timestamp.
+  google.protobuf.Timestamp updated_at = 3;
+}
+
+// Request message for [GatewayService.DeleteUser][goblog.gateway.v1.GatewayService.DeleteUser]
+message DeleteUserRequest {
+  // Required. The unique identifier for the user as an email address. Must be an existent user.
+  string email = 1;
+}
+
+
+// Request message for [GatewayService.GetUserDetails][goblog.gateway.v1.GatewayService.GetUserDetails]
+message GetUserDetailsRequest {
+  // Required. The unique identifier for the user as an email address. Must be a valid email address.
+  string email = 1;
+}
+
+// Response message for [GatewayService.GetUserDetails][goblog.gateway.v1.GatewayService.GetUserDetails]
+message GetUserDetailsResponse {
+  // Required. The unique identifier for the user.
+  string email = 1;
+  // Optional. The name for human-friendly display. If omitted, it will be set to the email @ prefix.
+  string username = 2;
+  // Creation timestamp.
+  google.protobuf.Timestamp created_at = 3;
+  // Update timestamp.
+  google.protobuf.Timestamp updated_at = 4;
+  // The user post list.
+  repeated Post posts = 5;
+
+  // The [GatewayService.GetUserDetailsResponse][goblog.gateway.v1.GatewayService.GetUserDetailsResponse] Post details.
+  message Post {
+    // The unique identifier for the post.
+    string id = 1;
+    // The slug URI used to access the post.
+    string slug = 2;
+    // The post title.
+    string title = 3;
+    // Creation timestamp.
+    google.protobuf.Timestamp created_at = 4;
+    // Update timestamp.
+    google.protobuf.Timestamp updated_at = 5;
+  }
+}

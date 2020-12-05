@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package goblog.post.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "goblog-genproto-go/post/v1;post";
+
+message Post {
+  string id = 1;
+  string slug = 2;
+  string title = 3;
+  string content = 4;
+  Author author = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message Author {
+  string email = 1;
+  string username = 2;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package goblog.auth.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "goblog-genproto-go/auth/v1;auth";
+
+message User {
+  string email = 1;
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
+}
+
+message UserCredential {
+  string email = 1;
+  CredentialType type = 2;
+  string credential = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+
+  enum CredentialType {
+    PASSWORD = 0;
+  }
+}
+
+message UserSession {
+  string email = 1;
+  string token = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp expire_at = 4;
+}

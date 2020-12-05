@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package goblog.post.v1;
+
+import "google/protobuf/empty.proto";
+import "goblog/post/v1/resources.proto";
+
+option go_package = "goblog-genproto-go/post/v1;post";
+
+service PostService {
+  rpc CreateAuthor(CreateAuthorRequest) returns (goblog.post.v1.Author);
+  rpc UpdateAuthor(UpdateAuthorRequest) returns (goblog.post.v1.Author);
+  rpc DeleteAuthor(DeleteAuthorRequest) returns (google.protobuf.Empty);
+  rpc GetAuthor(GetAuthorRequest) returns (goblog.post.v1.Author);
+  rpc ListAuthors(google.protobuf.Empty) returns (stream goblog.post.v1.Author);
+
+  rpc CreatePost(CreatePostRequest) returns (goblog.post.v1.Post);
+  rpc UpdatePost(UpdatePostRequest) returns (goblog.post.v1.Post);
+  rpc DeletePost(DeletePostRequest) returns (google.protobuf.Empty);
+  rpc GetPost(GetPostRequest) returns (goblog.post.v1.Post);
+  rpc ListPosts(google.protobuf.Empty) returns (stream goblog.post.v1.Post);
+}
+
+message CreateAuthorRequest {
+  string email = 1;
+  string username = 2;
+}
+
+message UpdateAuthorRequest {
+  string email = 1;
+  string username = 2;
+}
+
+message DeleteAuthorRequest {
+  string email = 1;
+}
+
+message GetAuthorRequest {
+  string email = 1;
+}
+
+message CreatePostRequest {
+  string title = 1;
+  string content = 2;
+  string author_email = 3;
+}
+
+message UpdatePostRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message DeletePostRequest {
+  string id = 1;
+}
+
+message GetPostRequest {
+  string id = 1;
+}
