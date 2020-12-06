@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "goblog/auth/v1/resources.proto";
 
-option go_package = "goblog-genproto-go/gateway/v1;gateway";
+option go_package = "github.com/pandore-tech/goblog-genproto-go/gateway/v1;gateway";
 
 // Goblog gateway service
 //

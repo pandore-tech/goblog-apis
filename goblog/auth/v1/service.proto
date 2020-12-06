@@ -5,7 +5,7 @@ package goblog.auth.v1;
 import "google/protobuf/empty.proto";
 import "goblog/auth/v1/resources.proto";
 
-option go_package = "goblog-genproto-go/auth/v1;auth";
+option go_package = "github.com/pandore-tech/goblog-genproto-go/auth/v1;auth";
 
 service AuthService {
   rpc CreateUser(CreateUserRequest) returns (goblog.auth.v1.User);

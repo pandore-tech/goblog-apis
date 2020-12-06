@@ -4,7 +4,7 @@ package goblog.post.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "goblog-genproto-go/post/v1;post";
+option go_package = "github.com/pandore-tech/goblog-genproto-go/post/v1;post";
 
 message Post {
   string id = 1;

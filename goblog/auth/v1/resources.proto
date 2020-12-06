@@ -4,7 +4,7 @@ package goblog.auth.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "goblog-genproto-go/auth/v1;auth";
+option go_package = "github.com/pandore-tech/goblog-genproto-go/auth/v1;auth";
 
 message User {
   string email = 1;
